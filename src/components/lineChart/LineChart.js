@@ -21,8 +21,6 @@ function LineChart({ index }) {
         return index === nbr ? 7 : 0
     }
 
- 
-
     const drawCurrentTemp = {
         id: 'drawCurrentTemp',
         afterDraw(chart, args, options) {
