@@ -38,7 +38,7 @@ function LineChart({ index }) {
             ctx.restore();
         }
     };
-//
+    
     return (
         <div>
             <Line
