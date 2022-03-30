@@ -28,17 +28,8 @@ html {
     display: flex;
     background: white;
     width: 1000px;
-<<<<<<< HEAD
     margin: 0 auto;
     border-radius: 25px;
     overflow: hidden;
-=======
-    height: 510px;
-    margin: 0 auto;
-    
-    border-radius: 25px;
-    overflow: hidden;
-
->>>>>>> 6c9ef1759bee6a6ad0867c6d28a0d91995d95eae
     margin-top: 60px;
 }
