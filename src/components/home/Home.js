@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import { BiSearchAlt } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { API_FETCH_REQUEST } from '../../contansts/contansts';
+import TemperatureSwitch from '../temperatureSwitch/TemperatureSwitch';
+import { useStore } from '../../store';
 import {
   hour,
   minute,
@@ -18,8 +20,9 @@ import {
 const Home = () => {
   const [valueInput, setValueInput] = useState();
   const [weatherDay, setWeatherDay] = useState(0);
-  const [messageError, setMessageError] = useState(false);
   const [rainNotification, setRainNotification] = useState(false);
+
+  const [temperatureSwitch, setTemperatureSwitch] = useStore();
 
   // redux
   const dispatch = useDispatch();
@@ -57,7 +60,6 @@ const Home = () => {
   return (
     <div className={styles.homeWeather}>
       <div className={styles.boxSearch}>
-        <div className={styles.titleSearch}>Your city</div>
         <div
           className={clsx(
             styles.inputSearch,
@@ -70,6 +72,7 @@ const Home = () => {
             placeholder="Search for places ..."
           />
         </div>
+        <TemperatureSwitch />
         {/* Notification */}
         {data.messageError && (
           <div className={styles.notFoundCity}>
@@ -102,7 +105,17 @@ const Home = () => {
               src={`http://openweathermap.org/img/wn/${data.detalsWeather.icon}@2x.png`}
             ></img>
           </div>
-          <div className={styles.temperature}>{data.detalsWeather.temp}</div>
+
+          {/* handle °C <--> °F */}
+          {temperatureSwitch ? (
+            <div className={styles.temperatureF}>
+              {data.detalsWeather.tempF}
+            </div>
+          ) : (
+            <div className={styles.temperatureC}>
+              {data.detalsWeather.tempC}
+            </div>
+          )}
         </div>
 
         <h1 className={styles.nameCity}>{data.detalsWeather.name}</h1>
