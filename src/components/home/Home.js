@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -24,41 +24,46 @@ const Home = () => {
 
   const [temperatureSwitch, setTemperatureSwitch] = useStore();
 
-  // redux
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.api);
-
   // request api
   useEffect(() => {
     dispatch(API_FETCH_REQUEST({ id: toDay, nameCity: 'ha noi' }));
   }, []);
 
+  // redux
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.api);
+
   // handle weather if it rains
   useEffect(() => {
     if (data.detalsWeather.icon == '10n' || data.detalsWeather.icon == '10d') {
       setRainNotification(true);
-      setTimeout(() => {
-        // setRainNotification(false)
-      }, 1700);
     } else {
       setRainNotification(false);
     }
   }, [data]);
 
-  // submit city name and id-(day of the week)
+  // click icon search ---> submit city name and id-(day of the week)
   const handleCitySearch = () => {
     dispatch(API_FETCH_REQUEST({ id: weatherDay, nameCity: valueInput }));
   };
 
   // input value when searching
   const handleSearchValue = (e) => {
-    setValueInput(e);
+    setValueInput(e.target.value);
     // user import input --> remote error
     data.messageError = false;
   };
 
+  // click enter ---> search ( hide )
+  // const handleEnterSearch = (e) => {
+  //   if (e.key === 'Enter') {
+  //     dispatch(API_FETCH_REQUEST({ id: weatherDay, nameCity: valueInput }));
+  //   }
+  // };
+
   return (
     <div className={styles.homeWeather}>
+      <TemperatureSwitch />
       <div className={styles.boxSearch}>
         <div
           className={clsx(
@@ -66,34 +71,37 @@ const Home = () => {
             data.messageError ? styles.colorError : ''
           )}
         >
-          <BiSearchAlt onClick={handleCitySearch} />
+          <BiSearchAlt onClick={handleCitySearch} aria-label="searchBtn" />
           <input
-            onChange={(e) => handleSearchValue(e.target.value)}
+            value={valueInput || ''}
+            onChange={(e) => handleSearchValue(e)}
             placeholder="Search for places ..."
+            aria-label="cost-input"
+            // onKeyDown={(e) => handleEnterSearch(e)}
           />
         </div>
-        <TemperatureSwitch />
+
         {/* Notification */}
         {data.messageError && (
-          <div className={styles.notFoundCity}>
-            {valueInput} city not found{' '}
+          <div className={styles.notFoundCity} data-testid="a" aria-label="a">
+            {valueInput} city not found
           </div>
         )}
       </div>
 
       <div className={styles.presentTime}>
         <span className={styles.hour}>
-          {hour}:{minute} {amPm},{' '}
+          {hour}:{minute} {amPm},
         </span>
         <span className={styles.week}>{day}, </span>
         <span className={styles.month}>
-          {month} {date},{' '}
+          {month} {date},
         </span>
         <span className={styles.year}>{year}</span>
         {/* Notification */}
         {rainNotification && (
           <div className={styles.rainNotification}>
-            Trời có mưa, hãy mang theo dù!{' '}
+            Trời có mưa, hãy mang theo dù!
           </div>
         )}
       </div>
@@ -108,7 +116,7 @@ const Home = () => {
 
           {/* handle °C <--> °F */}
           {temperatureSwitch ? (
-            <div className={styles.temperatureF}>
+            <div data-testid="temp" className={styles.temperatureF}>
               {data.detalsWeather.tempF}
             </div>
           ) : (
@@ -118,11 +126,13 @@ const Home = () => {
           )}
         </div>
 
-        <h1 className={styles.nameCity}>{data.detalsWeather.name}</h1>
+        <h1 className={styles.nameCity} aria-label="nameCity">
+          {data.detalsWeather.name}
+        </h1>
 
         <div className={styles.infoSupplement}>
           <div className={styles.humidity}>
-            <h3>Humidity</h3>
+            <h3 data-testid="test">Humidity</h3>
             <div className={styles.parameter}>
               {data.detalsWeather.humidity}
             </div>
@@ -140,4 +150,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

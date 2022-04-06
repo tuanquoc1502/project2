@@ -1,8 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { API_FETCH_FAILED, API_FETCH_SUCCEEDED } from '../contansts/contansts';
+import {
+  API_FETCH_FAILED,
+  API_FETCH_SUCCEEDED,
+  API_FETCH_REQUEST,
+} from '../contansts/contansts';
 import fetchData from './api';
 
 function* rootSaga() {
+  // yield put(API_FETCH_REQUEST({ id: 6, nameCity: 'ha noi' }));
   yield takeEvery('API_FETCH_REQUEST', handleApiRequest);
 }
 

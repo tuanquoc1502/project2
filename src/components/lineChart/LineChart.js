@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
 import { useStore } from '../../store';
 // libary Chartjs
 import {
@@ -29,13 +29,20 @@ function LineChart({ index }) {
   const [value, setValue] = useState([]);
   const data = useSelector((state) => state.api);
   const [temperatureSwitch, setTemperatureSwitch] = useStore();
+  const [currentTempText, setCurrentTempText] = useState('300');
 
   // update linechart every time the temperature changes
   useLayoutEffect(() => {
     const total = data.weekWeather.map((data) => data.main.temp);
     setValue(total);
-    console.log(data.weekWeather);
   }, [data]);
+
+  useEffect(() => {
+    const text = `${
+      temperatureSwitch ? data.detalsWeather.tempF : data.detalsWeather.tempC
+    } ${temperatureSwitch ? '' : ''}`;
+    setCurrentTempText(text);
+  }, [value, index, temperatureSwitch]);
 
   // handle point linechart
   function alternatePointRadius(ctx, nbr) {
@@ -46,9 +53,9 @@ function LineChart({ index }) {
   const drawCurrentTemp = {
     id: 'drawCurrentTemp',
     afterDraw(chart) {
-      console.log(temperatureSwitch);
       const { ctx } = chart;
       const currentTemp = chart.getDatasetMeta(0)._dataset.currentTemp;
+      const currentTempText = chart.getDatasetMeta(0)._dataset.currentTempText;
       const currentIndex = chart.getDatasetMeta(0)._dataset.currentIndex;
 
       ctx.save();
@@ -57,11 +64,7 @@ function LineChart({ index }) {
       ctx.textAlign = 'center';
       if (chart.getDatasetMeta(0).data[currentIndex]) {
         const { x, y } = chart.getDatasetMeta(0).data[currentIndex];
-        if (temperatureSwitch) {
-          ctx.fillText(`${currentTemp.toFixed(0)}°F`, x, y - 10);
-        } else {
-          ctx.fillText(`${currentTemp.toFixed(0)}°C`, x, y - 10);
-        }
+        ctx.fillText(currentTempText, x, y - 10);
       }
       ctx.restore();
     },
@@ -87,6 +90,7 @@ function LineChart({ index }) {
                 : `${data.detalsWeather.tempC}°C`,
               currentIndex: index,
               currentTemp: value[index],
+              currentTempText: currentTempText,
             },
           ],
         }}
