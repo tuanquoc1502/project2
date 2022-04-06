@@ -1,12 +1,8 @@
+import { convertCtoF } from '../contansts/contansts';
+
 const initState = {
   weekWeather: [],
-  detalsWeather: {
-    name: '',
-    temp: '',
-    icon: '',
-    humidity: '',
-    windSpeed: '',
-  },
+  detalsWeather: {},
   messageError: false,
 };
 
@@ -18,7 +14,8 @@ const apiReducer = (state = initState, action) => {
         weekWeather: action.payload.list,
         detalsWeather: {
           name: city.name,
-          temp: list[id].main.temp.toFixed(0),
+          tempC: list[id].main.temp.toFixed(0),
+          tempF: convertCtoF(list[id].main.temp).toFixed(0),
           icon: list[id].weather[0].icon,
           humidity: list[id].main.humidity,
           windSpeed: list[id].wind.speed.toFixed(1),

@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
+import { useStore } from '../../store';
 // libary Chartjs
 import {
   Chart as ChartJS,
@@ -27,11 +28,21 @@ ChartJS.register(
 function LineChart({ index }) {
   const [value, setValue] = useState([]);
   const data = useSelector((state) => state.api);
+  const [temperatureSwitch, setTemperatureSwitch] = useStore();
+  const [currentTempText, setCurrentTempText] = useState('300');
+
   // update linechart every time the temperature changes
   useLayoutEffect(() => {
     const total = data.weekWeather.map((data) => data.main.temp);
     setValue(total);
   }, [data]);
+
+  useEffect(() => {
+    const text = `${
+      temperatureSwitch ? data.detalsWeather.tempF : data.detalsWeather.tempC
+    } ${temperatureSwitch ? '' : ''}`;
+    setCurrentTempText(text);
+  }, [value, index, temperatureSwitch]);
 
   // handle point linechart
   function alternatePointRadius(ctx, nbr) {
@@ -41,17 +52,19 @@ function LineChart({ index }) {
 
   const drawCurrentTemp = {
     id: 'drawCurrentTemp',
-    afterDraw(chart, args, options) {
+    afterDraw(chart) {
       const { ctx } = chart;
       const currentTemp = chart.getDatasetMeta(0)._dataset.currentTemp;
+      const currentTempText = chart.getDatasetMeta(0)._dataset.currentTempText;
       const currentIndex = chart.getDatasetMeta(0)._dataset.currentIndex;
+
       ctx.save();
       ctx.font = '20px Sans MS';
       ctx.fillStyle = '#3f84e2';
       ctx.textAlign = 'center';
       if (chart.getDatasetMeta(0).data[currentIndex]) {
         const { x, y } = chart.getDatasetMeta(0).data[currentIndex];
-        ctx.fillText(`${currentTemp.toFixed(0)}`, x, y - 10);
+        ctx.fillText(currentTempText, x, y - 10);
       }
       ctx.restore();
     },
@@ -72,9 +85,12 @@ function LineChart({ index }) {
               borderWidth: 2,
               tension: 0.4,
               fill: true,
-              pointStyle: data.detalsWeather.temp,
+              pointStyle: temperatureSwitch
+                ? `${data.detalsWeather.tempF}°F`
+                : `${data.detalsWeather.tempC}°C`,
               currentIndex: index,
               currentTemp: value[index],
+              currentTempText: currentTempText,
             },
           ],
         }}
@@ -95,7 +111,7 @@ function LineChart({ index }) {
             title: {
               display: true,
               text: (ctx) =>
-                'Temperature: ' + `${ctx.chart.data.datasets[0].pointStyle}°C`,
+                'Temperature: ' + `${ctx.chart.data.datasets[0].pointStyle}`,
             },
             legend: {
               display: false,

@@ -89,5 +89,9 @@ switch (day) {
     console.log('err');
 }
 
+export const convertCtoF = (c) => {
+  return (c * 9) / 5 + 32;
+};
+
 export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
 export { API_FETCH_REQUEST, API_FETCH_SUCCEEDED, API_FETCH_FAILED };
