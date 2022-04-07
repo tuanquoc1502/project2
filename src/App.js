@@ -1,4 +1,4 @@
-import Details from './components/weatherByDay/WeatherByDay';
+import WeatherByDay from './components/weatherByDay/WeatherByDay';
 import Home from './components/home/Home';
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <div className="wapperAppWeather">
         <Home />
-        <Details />
+        <WeatherByDay />
       </div>
     </div>
   );
