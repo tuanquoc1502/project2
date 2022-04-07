@@ -1,4 +1,10 @@
-import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
+import React, {
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useStore } from '../../store';
 // libary Chartjs
 import {
@@ -45,6 +51,7 @@ function LineChart({ index }) {
   }, [value, index, temperatureSwitch]);
 
   // handle point linechart
+
   function alternatePointRadius(ctx, nbr) {
     const index = ctx.dataIndex;
     return index === nbr ? 7 : 0;
