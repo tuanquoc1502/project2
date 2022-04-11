@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import styles from './WeatherByDay.module.scss';
 import LineChart from '../lineChart/LineChart';
-import { useDispatch, useSelector } from 'react-redux';
-import { toDay, daysOfWeek } from '../../contansts/contansts';
-import { API_FETCH_REQUEST } from '../../contansts/contansts';
+import { convertCtoF } from '../../contansts/contansts';
+import { useDispatch } from 'react-redux';
+import { toDay, daysOfWeek, DETAIL_WEATHER } from '../../contansts/contansts';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const WeatherByDay = () => {
+const WeekWeather = ({ data, i, temperature }) => {
   const [colorCurrentWeather, setColorCurrentWeather] = useState(toDay);
 
-  const data = useSelector((state) => state.api);
   const dispatch = useDispatch();
-
   // handle weather changes during the week
-  const handleRenderWeatherByDay = (index) => {
-    dispatch(
-      API_FETCH_REQUEST({ id: index, nameCity: data.detalsWeather.name })
-    );
+  const handleRenderWeekWeather = (index) => {
+    const weatherScreenData = {
+      name: data.detalsWeather.name,
+      tempC: data.weekWeather[index].main.temp.toFixed(0),
+      tempF: convertCtoF(data.weekWeather[index].main.temp).toFixed(0),
+      icon: data.weekWeather[index].weather[0].icon,
+      humidity: data.weekWeather[index].main.humidity,
+      wind: data.weekWeather[index].wind.speed.toFixed(1),
+    };
+
+    dispatch(DETAIL_WEATHER({ weatherScreenData, i }));
+
     setColorCurrentWeather(index);
   };
 
@@ -35,7 +41,7 @@ const WeatherByDay = () => {
   return (
     <div className={styles.wapper}>
       <div>
-        <LineChart index={colorCurrentWeather} />
+        <LineChart index={colorCurrentWeather} data={data} temperature={temperature} />
       </div>
 
       <div className={styles.weatherByDay}>
@@ -45,7 +51,7 @@ const WeatherByDay = () => {
               <li
                 className={colorCurrentWeather === index ? styles.active : ''}
                 key={index}
-                onClick={() => handleRenderWeatherByDay(index)}
+                onClick={() => handleRenderWeekWeather(index)}
                 aria-label="input"
               >
                 <h3>{daysOfWeek[index]}</h3>
@@ -55,9 +61,7 @@ const WeatherByDay = () => {
                   ></img>
                 </div>
                 <div className={styles.title}>Humidity</div>
-                <div className={styles.humidity}>
-                  {weatherDay?.main.humidity}%
-                </div>
+                <div className={styles.humidity}>{weatherDay?.main.humidity}%</div>
               </li>
             ))}
           </Slider>
@@ -67,4 +71,4 @@ const WeatherByDay = () => {
   );
 };
 
-export default WeatherByDay;
+export default WeekWeather;

@@ -1,16 +1,13 @@
 import React from 'react';
 import store from '../../redux/store';
 import { Provider } from 'react-redux';
-import { StoreProvider } from '../../store';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import LineChart from './LineChart';
 
 const Wrapper = (
   <Provider store={store}>
-    <StoreProvider>
-      <LineChart />
-    </StoreProvider>
+    <LineChart />
   </Provider>
 );
 
@@ -37,9 +34,7 @@ describe('test LineChart', () => {
             pop: 0,
             sys: { pod: 'd' },
             visibility: 10000,
-            weather: [
-              { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-            ],
+            weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
             wind: { speed: 1.36, deg: 52, gust: 2.12 },
           },
         ],

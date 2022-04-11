@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import styles from './TemperatureSwitch.module.scss';
-import { useStore } from '../../store';
 
 import clsx from 'clsx';
 import { styled } from '@mui/system';
@@ -75,10 +74,10 @@ const SwitchTrack = styled('span')(`
 `);
 
 const TemperatureSwitch = (props) => {
-  const [temperatureSwitch, setTemperatureSwitch] = useStore();
+  const { setTemperature, temperature } = props;
 
   const toggleTemperature = () => {
-    setTemperatureSwitch(!temperatureSwitch);
+    setTemperature(!temperature);
   };
 
   const { getInputProps, checked, disabled, focusVisible } = useSwitch(props);
