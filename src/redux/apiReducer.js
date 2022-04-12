@@ -9,23 +9,7 @@ const initState = [
 
 const weatherReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'CALL_ONE_CHARTS':
-      const { list, id, city } = action.payload;
-      return [
-        {
-          weekWeather: action.payload.list,
-          detalsWeather: {
-            name: city.name,
-            tempC: list[id].main.temp.toFixed(0),
-            tempF: convertCtoF(list[id].main.temp).toFixed(0),
-            icon: list[id].weather[0].icon,
-            humidity: list[id].main.humidity,
-            windSpeed: list[id].wind.speed.toFixed(1),
-          },
-        },
-      ];
-
-    case 'CALL_FIVE_CHARTS': {
+    case 'CALL_CHARTS': {
       const { list, id, city } = action.payload;
       return [
         ...state,

@@ -13,28 +13,14 @@ const API_FETCH_FAILED = (payload) => {
   };
 };
 
-const FETCH_API_REQUEST_ONE = (payload) => {
-  return {
-    type: 'FETCH_API_REQUEST_ONE',
-    payload: payload,
-  };
-};
-
-const CALL_ONE_CHARTS = (payload) => {
-  return {
-    type: 'CALL_ONE_CHARTS',
-    payload: payload,
-  };
-};
-
-const FETCH_API_REQUEST_FIVE = (payload) => {
+const FETCH_API_REQUEST = (payload) => {
   return {
     type: 'FETCH_API_REQUEST_FIVE',
     payload: payload,
   };
 };
 
-const CALL_FIVE_CHARTS = (payload) => {
+const CALL_CHARTS = (payload) => {
   return {
     type: 'CALL_FIVE_CHARTS',
     payload: payload,
@@ -114,11 +100,4 @@ export const convertCtoF = (c) => {
 };
 
 export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
-export {
-  API_FETCH_FAILED,
-  FETCH_API_REQUEST_ONE,
-  CALL_ONE_CHARTS,
-  FETCH_API_REQUEST_FIVE,
-  CALL_FIVE_CHARTS,
-  DETAIL_WEATHER,
-};
+export { API_FETCH_FAILED, FETCH_API_REQUEST, CALL_CHARTS, DETAIL_WEATHER };
