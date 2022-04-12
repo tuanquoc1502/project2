@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import fetchData from './api';
-import { API_FETCH_FAILED } from '../contansts/contansts';
+import { API_FETCH_FAILED, CALL_CHARTS } from '../contansts/contansts';
 
 function* rootSaga() {
   yield takeEvery('FETCH_API_REQUEST', handleFiveApiRequest);

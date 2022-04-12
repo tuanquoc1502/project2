@@ -9,9 +9,8 @@ function App() {
     <div className="App">
       <ChartNumberSelection />
       <div>
-        {totalData.map((data, index) => (
-          <Container key={index} data={data} index={index} />
-        ))}
+        {totalData.length > 0 &&
+          totalData.map((data, index) => <Container key={index} data={data} index={index} />)}
       </div>
     </div>
   );

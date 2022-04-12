@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { FETCH_API_REQUEST, toDay } from '../../contansts/contansts';
+import { API_RESET, FETCH_API_REQUEST, toDay } from '../../contansts/contansts';
 import { useDispatch } from 'react-redux';
 import './ChartNumberSelection.scss';
 import { FormControl, MenuItem, Select } from '@mui/material';
@@ -11,12 +11,14 @@ const ChartNumberSelection = () => {
 
   useEffect(() => {
     // city ​​entered by user
-    const total = ['ho chi minh', 'new york', 'Bà Rịa', 'ninh binh'];
+    const total = ['ha noi', 'ho chi minh', 'new york', 'Bà Rịa', 'ninh binh'];
 
+    dispatch(API_RESET());
     for (let i = 0; i < number; i++) {
+      console.log(i);
       dispatch(FETCH_API_REQUEST({ id: toDay, nameCity: total[i] }));
     }
-  }, [age]);
+  }, [number]);
 
   return (
     <div>

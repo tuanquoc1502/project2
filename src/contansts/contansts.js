@@ -15,14 +15,21 @@ const API_FETCH_FAILED = (payload) => {
 
 const FETCH_API_REQUEST = (payload) => {
   return {
-    type: 'FETCH_API_REQUEST_FIVE',
+    type: 'FETCH_API_REQUEST',
+    payload: payload,
+  };
+};
+
+const API_RESET = (payload) => {
+  return {
+    type: 'API_RESET',
     payload: payload,
   };
 };
 
 const CALL_CHARTS = (payload) => {
   return {
-    type: 'CALL_FIVE_CHARTS',
+    type: 'CALL_CHARTS',
     payload: payload,
   };
 };
@@ -100,4 +107,4 @@ export const convertCtoF = (c) => {
 };
 
 export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
-export { API_FETCH_FAILED, FETCH_API_REQUEST, CALL_CHARTS, DETAIL_WEATHER };
+export { API_FETCH_FAILED, FETCH_API_REQUEST, CALL_CHARTS, DETAIL_WEATHER, API_RESET };

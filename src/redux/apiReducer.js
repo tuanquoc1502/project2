@@ -1,11 +1,6 @@
 import { convertCtoF } from '../contansts/contansts';
 
-const initState = [
-  {
-    weekWeather: [],
-    detalsWeather: {},
-  },
-];
+const initState = [];
 
 const weatherReducer = (state = initState, action) => {
   switch (action.type) {
@@ -26,6 +21,9 @@ const weatherReducer = (state = initState, action) => {
         },
       ];
     }
+
+    case 'API_RESET':
+      return [];
 
     case 'DETAIL_WEATHER':
       const newState = state.map((object, index) => {
