@@ -9,7 +9,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const Details = () => {
+const WeatherByDay = () => {
   const [colorCurrentWeather, setColorCurrentWeather] = useState(toDay);
 
   const data = useSelector((state) => state.api);
@@ -46,6 +46,7 @@ const Details = () => {
                 className={colorCurrentWeather === index ? styles.active : ''}
                 key={index}
                 onClick={() => handleRenderWeatherByDay(index)}
+                aria-label="input"
               >
                 <h3>{daysOfWeek[index]}</h3>
                 <div className={styles.photo}>
@@ -66,4 +67,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default WeatherByDay;

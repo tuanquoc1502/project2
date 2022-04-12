@@ -40,6 +40,7 @@ const month = getCustomMonthNameFull();
 if (hour < 10) {
   hour = `0${hour}`;
 }
+
 if (minute < 10) {
   minute = `0${minute}`;
 }
@@ -56,38 +57,44 @@ const daysOfWeek = [
 
 let toDay;
 
-switch (day) {
-  case 'Monday': {
-    toDay = 0;
-    break;
+export const wholeDay = (day) => {
+  let result;
+  switch (day) {
+    case 'Monday': {
+      toDay = result = 0;
+      break;
+    }
+    case 'Tuesday': {
+      toDay = 1;
+      break;
+    }
+    case 'Wednesday': {
+      toDay = 2;
+      break;
+    }
+    case 'Thursday': {
+      toDay = 3;
+      break;
+    }
+    case 'Friday': {
+      toDay = 4;
+      break;
+    }
+    case 'Saturday': {
+      toDay = 5;
+      break;
+    }
+    case 'Sunday': {
+      toDay = 6;
+      break;
+    }
+    default:
+      return 'err';
   }
-  case 'Tuesday': {
-    toDay = 1;
-    break;
-  }
-  case 'Wednesday': {
-    toDay = 2;
-    break;
-  }
-  case 'Thursday': {
-    toDay = 3;
-    break;
-  }
-  case 'Friday': {
-    toDay = 4;
-    break;
-  }
-  case 'Saturday': {
-    toDay = 5;
-    break;
-  }
-  case 'Sunday': {
-    toDay = 6;
-    break;
-  }
-  default:
-    console.log('err');
-}
+  return result;
+};
+
+wholeDay(day);
 
 export const convertCtoF = (c) => {
   return (c * 9) / 5 + 32;
