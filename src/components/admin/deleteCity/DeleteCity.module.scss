@@ -1,0 +1,19 @@
+.boxConfirm {
+  h1 {
+    font-size: 1.6rem;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .confirmBtn {
+    text-align: center;
+    margin-top: 20px;
+    margin-right: 20px;
+
+    button {
+      padding: 5px 20px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+  }
+}

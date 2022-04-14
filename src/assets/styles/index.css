@@ -18,7 +18,7 @@ html {
   outline: none;
   border: none;
   scroll-behavior: smooth;
-  background: #999;
+  background: rgb(77, 76, 76);
 }
 
 .App {
@@ -34,4 +34,16 @@ html {
   border-radius: 15px;
   margin-bottom: 50px;
   overflow: hidden;
+}
+
+.Toastify {
+  font-size: 15px !important;
+}
+
+.demoSimpleSelect {
+  font-size: 1.3rem;
+}
+
+.value {
+  font-size: 1.2rem;
 }

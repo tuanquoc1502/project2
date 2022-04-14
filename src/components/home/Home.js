@@ -28,9 +28,7 @@ const Home = ({ data, temperature, setTemperature }) => {
           </span>
           <span className={styles.year}>{year}</span>
 
-          {rainNotification && (
-            <div className={styles.rainNotification}>Trời có mưa, hãy mang theo dù!</div>
-          )}
+          {rainNotification && <div className={styles.rainNotification}>Trời có mưa, hãy mang theo dù!</div>}
         </div>
 
         <div className={styles.weatherInfo}>
@@ -55,12 +53,12 @@ const Home = ({ data, temperature, setTemperature }) => {
           <div className={styles.infoSupplement}>
             <div className={styles.humidity}>
               <h3 data-testid="test">Humidity</h3>
-              <div className={styles.parameter}>{data.detalsWeather.humidity}</div>
+              <div className={styles.parameter}>{data.detalsWeather.humidity}%</div>
             </div>
 
             <div className={styles.windSpeed}>
               <h3>Wind speed</h3>
-              <div className={styles.parameter}>{data.detalsWeather.windSpeed} km/h</div>
+              <div className={styles.parameter}>{data.detalsWeather.wind} km/h</div>
             </div>
           </div>
         </div>

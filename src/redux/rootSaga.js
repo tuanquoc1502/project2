@@ -1,16 +1,29 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, delay } from 'redux-saga/effects';
+import { API_FETCH_FAILED, CALL_CHARTS, CALL_WEATHER } from '../contansts/contansts';
 import fetchData from './api';
-import { API_FETCH_FAILED, CALL_CHARTS } from '../contansts/contansts';
 
 function* rootSaga() {
-  yield takeEvery('FETCH_API_REQUEST', handleFiveApiRequest);
+  yield takeEvery('FETCH_API_CHART_REQUEST', handleApiChartRequest);
+  yield takeEvery('FETCH_API_WEATHER_REQUEST', handleApiWeatherRequest);
 }
 
-function* handleFiveApiRequest(action) {
+function* handleApiChartRequest(action) {
   try {
     const data = yield call(fetchData, action.payload.nameCity);
     data.id = action.payload.id;
+    yield delay(1500);
     yield put(CALL_CHARTS(data));
+  } catch (e) {
+    yield put(API_FETCH_FAILED());
+  }
+}
+
+function* handleApiWeatherRequest(action) {
+  try {
+    const data = yield call(fetchData, action.payload);
+    data.id = action.payload.id;
+    yield delay(1500);
+    yield put(CALL_WEATHER(data));
   } catch (e) {
     yield put(API_FETCH_FAILED());
   }

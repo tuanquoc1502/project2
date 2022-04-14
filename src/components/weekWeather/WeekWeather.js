@@ -56,9 +56,7 @@ const WeekWeather = ({ data, i, temperature }) => {
               >
                 <h3>{daysOfWeek[index]}</h3>
                 <div className={styles.photo}>
-                  <img
-                    src={`http://openweathermap.org/img/wn/${weatherDay?.weather[0].icon}@2x.png`}
-                  ></img>
+                  <img src={`http://openweathermap.org/img/wn/${weatherDay?.weather[0].icon}@2x.png`}></img>
                 </div>
                 <div className={styles.title}>Humidity</div>
                 <div className={styles.humidity}>{weatherDay?.main.humidity}%</div>

@@ -1,10 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
-import { API_RESET, FETCH_API_REQUEST, toDay } from '../../contansts/contansts';
+import { API_RESET, FETCH_API_CHART_REQUEST, toDay } from '../../contansts/contansts';
 import { useDispatch } from 'react-redux';
-import './ChartNumberSelection.scss';
 import { FormControl, MenuItem, Select } from '@mui/material';
+import styles from './ChartNumberSelection.module.scss';
 
-const ChartNumberSelection = () => {
+const ChartNumberSelection = ({ data }) => {
+  const [open, setOpen] = useState(false);
   const [number, setNumber] = useState(1);
 
   const dispatch = useDispatch();
@@ -15,13 +16,19 @@ const ChartNumberSelection = () => {
 
     dispatch(API_RESET());
     for (let i = 0; i < number; i++) {
-      console.log(i);
-      dispatch(FETCH_API_REQUEST({ id: toDay, nameCity: total[i] }));
+      // fake time call api
+      setOpen(true);
+
+      dispatch(FETCH_API_CHART_REQUEST({ id: toDay, nameCity: total[i] }));
+
+      setTimeout(() => {
+        setOpen(false);
+      }, 1500);
     }
   }, [number]);
 
   return (
-    <div>
+    <>
       <FormControl
         sx={{
           mt: 5,
@@ -30,13 +37,18 @@ const ChartNumberSelection = () => {
           background: 'white',
           borderRadius: '10px',
         }}
+        className={styles.box}
       >
-        <Select value={number} onChange={(e) => setNumber(e.target.value)}>
-          <MenuItem value={1}>1 Chart</MenuItem>
-          <MenuItem value={5}>5 Chart</MenuItem>
+        <Select value={number} onChange={(e) => setNumber(e.target.value)} disabled={open} style={{ fontSize: '1.4rem' }}>
+          <MenuItem style={{ fontSize: '1.3rem' }} value={1}>
+            1 Chart
+          </MenuItem>
+          <MenuItem style={{ fontSize: '1.3rem' }} value={5}>
+            5 Chart
+          </MenuItem>
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 };
 

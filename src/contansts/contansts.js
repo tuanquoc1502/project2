@@ -1,9 +1,4 @@
-import {
-  getCustomAmPm,
-  getCustomDate,
-  getCustomDayNameFull,
-  getCustomMonthNameFull,
-} from '@hirishu10/simple-date-time';
+import { getCustomAmPm, getCustomDate, getCustomDayNameFull, getCustomMonthNameFull } from '@hirishu10/simple-date-time';
 
 // actions redux
 const API_FETCH_FAILED = (payload) => {
@@ -13,9 +8,16 @@ const API_FETCH_FAILED = (payload) => {
   };
 };
 
-const FETCH_API_REQUEST = (payload) => {
+const FETCH_API_CHART_REQUEST = (payload) => {
   return {
-    type: 'FETCH_API_REQUEST',
+    type: 'FETCH_API_CHART_REQUEST',
+    payload: payload,
+  };
+};
+
+const FETCH_API_WEATHER_REQUEST = (payload) => {
+  return {
+    type: 'FETCH_API_WEATHER_REQUEST',
     payload: payload,
   };
 };
@@ -27,6 +29,13 @@ const API_RESET = (payload) => {
   };
 };
 
+const API_WEATHER_RESET = (payload) => {
+  return {
+    type: 'API_WEATHER_RESET',
+    payload: payload,
+  };
+};
+
 const CALL_CHARTS = (payload) => {
   return {
     type: 'CALL_CHARTS',
@@ -34,9 +43,37 @@ const CALL_CHARTS = (payload) => {
   };
 };
 
+const CALL_WEATHER = (payload) => {
+  return {
+    type: 'CALL_WEATHER',
+    payload: payload,
+  };
+};
+
 const DETAIL_WEATHER = (payload) => {
   return {
     type: 'DETAIL_WEATHER',
+    payload: payload,
+  };
+};
+
+const EDIT_WEATHER = (payload) => {
+  return {
+    type: 'EDIT_WEATHER',
+    payload: payload,
+  };
+};
+
+const DELETE_WEATHER = (payload) => {
+  return {
+    type: 'DELETE_WEATHER',
+    payload: payload,
+  };
+};
+
+const ADD_WEATHER = (payload) => {
+  return {
+    type: 'ADD_WEATHER',
     payload: payload,
   };
 };
@@ -107,4 +144,16 @@ export const convertCtoF = (c) => {
 };
 
 export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
-export { API_FETCH_FAILED, FETCH_API_REQUEST, CALL_CHARTS, DETAIL_WEATHER, API_RESET };
+export {
+  API_FETCH_FAILED,
+  FETCH_API_CHART_REQUEST,
+  CALL_CHARTS,
+  DETAIL_WEATHER,
+  API_RESET,
+  FETCH_API_WEATHER_REQUEST,
+  CALL_WEATHER,
+  API_WEATHER_RESET,
+  EDIT_WEATHER,
+  DELETE_WEATHER,
+  ADD_WEATHER,
+};

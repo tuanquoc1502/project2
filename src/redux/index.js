@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import apiReducer from './apiReducer';
+import apiChartsReducer from './apiChartsReducer';
+import apiWeatherReducer from './apiWeatherReducer';
 
 const rootReducer = combineReducers({
-  numberCharts: apiReducer,
+  numberCharts: apiChartsReducer,
+  allDataWeather: apiWeatherReducer,
 });
 
 export default rootReducer;
