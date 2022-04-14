@@ -1,15 +1,8 @@
 import React from 'react';
 import store from '../../../redux/store';
 import { Provider } from 'react-redux';
-import { StoreProvider } from '../../../store/index';
 import axios from 'axios';
-import {
-  render,
-  screen,
-  act,
-  getByRole,
-  fireEvent,
-} from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 import Home from '../Home';
@@ -20,9 +13,7 @@ jest.mock('axios');
 
 const Wrapper = (
   <Provider store={store}>
-    <StoreProvider>
-      <Home />
-    </StoreProvider>
+    <Home />
   </Provider>
 );
 
@@ -46,9 +37,7 @@ describe('test Fetch', () => {
             humidity: 58,
             temp_kf: 4.99,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 4.87, deg: 139, gust: 8.65 },
           visibility: 10000,
@@ -69,9 +58,7 @@ describe('test Fetch', () => {
             humidity: 63,
             temp_kf: 4.45,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 3.29, deg: 150, gust: 7.43 },
           visibility: 10000,
@@ -92,9 +79,7 @@ describe('test Fetch', () => {
             humidity: 71,
             temp_kf: 2.48,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 2.07, deg: 170, gust: 3.47 },
           visibility: 10000,
@@ -115,9 +100,7 @@ describe('test Fetch', () => {
             humidity: 80,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 0.85, deg: 142, gust: 1.04 },
           visibility: 10000,
@@ -138,9 +121,7 @@ describe('test Fetch', () => {
             humidity: 75,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 5 },
           wind: { speed: 0.51, deg: 10, gust: 0.68 },
           visibility: 10000,
@@ -161,9 +142,7 @@ describe('test Fetch', () => {
             humidity: 55,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 8 },
           wind: { speed: 1.47, deg: 360, gust: 1.76 },
           visibility: 10000,
@@ -184,9 +163,7 @@ describe('test Fetch', () => {
             humidity: 41,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 10 },
           wind: { speed: 2.09, deg: 49, gust: 2.16 },
           visibility: 10000,
@@ -211,18 +188,6 @@ describe('test Fetch', () => {
 
     const container = render(Wrapper);
     await act(() => sleep(1000));
-
-    const inputEl = container.getByLabelText('cost-input');
-    const nameCityEl = container.getByLabelText('nameCity');
-    const searchEl = container.getByLabelText('searchBtn');
-
-    fireEvent.change(inputEl, {
-      target: {
-        value: 'ha noi',
-      },
-    });
-    fireEvent.click(searchEl);
-    expect(nameCityEl.textContent).toBe('Hanoi');
 
     const switchBtn = screen.getByRole('checkbox');
     await userEvent.click(switchBtn);

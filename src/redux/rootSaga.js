@@ -1,23 +1,16 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import {
-  API_FETCH_FAILED,
-  API_FETCH_SUCCEEDED,
-  API_FETCH_REQUEST,
-} from '../contansts/contansts';
 import fetchData from './api';
+import { API_FETCH_FAILED, CALL_CHARTS } from '../contansts/contansts';
 
 function* rootSaga() {
-  // yield put(API_FETCH_REQUEST({ id: 6, nameCity: 'ha noi' }));
-  yield takeEvery('API_FETCH_REQUEST', handleApiRequest);
+  yield takeEvery('FETCH_API_REQUEST', handleFiveApiRequest);
 }
 
-function* handleApiRequest(action) {
+function* handleFiveApiRequest(action) {
   try {
     const data = yield call(fetchData, action.payload.nameCity);
-
-    // add id to data ---> get the day of the week
     data.id = action.payload.id;
-    yield put(API_FETCH_SUCCEEDED(data));
+    yield put(CALL_CHARTS(data));
   } catch (e) {
     yield put(API_FETCH_FAILED());
   }

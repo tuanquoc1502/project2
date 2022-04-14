@@ -22,14 +22,16 @@ html {
 }
 
 .App {
+  width: 1000px;
+  margin: 0 auto;
 }
 
-.wapperAppWeather {
+.wapper {
   display: flex;
   background: white;
   width: 1000px;
   margin: 0 auto;
-  border-radius: 25px;
+  border-radius: 15px;
+  margin-bottom: 50px;
   overflow: hidden;
-  margin-top: 60px;
 }

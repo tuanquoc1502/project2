@@ -1,5 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
-import { useStore } from '../../store';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 // libary Chartjs
 import {
   Chart as ChartJS,
@@ -13,7 +12,6 @@ import {
   Filler,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,10 +23,8 @@ ChartJS.register(
   Filler
 );
 
-function LineChart({ index }) {
+function LineChart({ index, data, temperature }) {
   const [value, setValue] = useState([]);
-  const data = useSelector((state) => state.api);
-  const [temperatureSwitch, setTemperatureSwitch] = useStore();
   const [currentTempText, setCurrentTempText] = useState('300');
 
   // update linechart every time the temperature changes
@@ -38,11 +34,11 @@ function LineChart({ index }) {
   }, [data]);
 
   useEffect(() => {
-    const text = `${
-      temperatureSwitch ? data.detalsWeather.tempF : data.detalsWeather.tempC
-    } ${temperatureSwitch ? '' : ''}`;
+    const text = `${temperature ? data.detalsWeather.tempF : data.detalsWeather.tempC} ${
+      temperature ? '' : ''
+    }`;
     setCurrentTempText(text);
-  }, [value, index, temperatureSwitch]);
+  }, [value, index, temperature]);
 
   // handle point linechart
   function alternatePointRadius(ctx, nbr) {
@@ -54,7 +50,6 @@ function LineChart({ index }) {
     id: 'drawCurrentTemp',
     afterDraw(chart) {
       const { ctx } = chart;
-      const currentTemp = chart.getDatasetMeta(0)._dataset.currentTemp;
       const currentTempText = chart.getDatasetMeta(0)._dataset.currentTempText;
       const currentIndex = chart.getDatasetMeta(0)._dataset.currentIndex;
 
@@ -85,7 +80,7 @@ function LineChart({ index }) {
               borderWidth: 2,
               tension: 0.4,
               fill: true,
-              pointStyle: temperatureSwitch
+              pointStyle: temperature
                 ? `${data.detalsWeather.tempF}°F`
                 : `${data.detalsWeather.tempC}°C`,
               currentIndex: index,
@@ -110,8 +105,7 @@ function LineChart({ index }) {
           plugins: {
             title: {
               display: true,
-              text: (ctx) =>
-                'Temperature: ' + `${ctx.chart.data.datasets[0].pointStyle}`,
+              text: (ctx) => 'Temperature: ' + `${ctx.chart.data.datasets[0].pointStyle}`,
             },
             legend: {
               display: false,

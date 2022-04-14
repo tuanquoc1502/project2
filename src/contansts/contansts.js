@@ -6,23 +6,37 @@ import {
 } from '@hirishu10/simple-date-time';
 
 // actions redux
-const API_FETCH_REQUEST = (payload) => {
-  return {
-    type: 'API_FETCH_REQUEST',
-    payload: payload,
-  };
-};
-
-const API_FETCH_SUCCEEDED = (payload) => {
-  return {
-    type: 'API_FETCH_SUCCEEDED',
-    payload: payload,
-  };
-};
-
 const API_FETCH_FAILED = (payload) => {
   return {
     type: 'API_FETCH_FAILED',
+    payload: payload,
+  };
+};
+
+const FETCH_API_REQUEST = (payload) => {
+  return {
+    type: 'FETCH_API_REQUEST',
+    payload: payload,
+  };
+};
+
+const API_RESET = (payload) => {
+  return {
+    type: 'API_RESET',
+    payload: payload,
+  };
+};
+
+const CALL_CHARTS = (payload) => {
+  return {
+    type: 'CALL_CHARTS',
+    payload: payload,
+  };
+};
+
+const DETAIL_WEATHER = (payload) => {
+  return {
+    type: 'DETAIL_WEATHER',
     payload: payload,
   };
 };
@@ -45,15 +59,7 @@ if (minute < 10) {
   minute = `0${minute}`;
 }
 
-const daysOfWeek = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
+const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 let toDay;
 
@@ -101,4 +107,4 @@ export const convertCtoF = (c) => {
 };
 
 export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
-export { API_FETCH_REQUEST, API_FETCH_SUCCEEDED, API_FETCH_FAILED };
+export { API_FETCH_FAILED, FETCH_API_REQUEST, CALL_CHARTS, DETAIL_WEATHER, API_RESET };

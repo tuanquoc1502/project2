@@ -1,13 +1,11 @@
 import React from 'react';
 import store from '../../redux/store';
 import { Provider } from 'react-redux';
-import { StoreProvider } from '../../store/index';
 import axios from 'axios';
 import { render, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
-import WeatherByDay from './WeatherByDay';
-import { API_FETCH_REQUEST } from '../../contansts/contansts';
+import WeekWeather from './WeekWeather';
+import { FETCH_API_REQUEST_ONE } from '../../contansts/contansts';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -15,14 +13,12 @@ jest.mock('axios');
 
 const Wrapper = (
   <Provider store={store}>
-    <StoreProvider>
-      <WeatherByDay />
-    </StoreProvider>
+    <WeekWeather />
   </Provider>
 );
 
-describe('test WeatherByDay', () => {
-  test('render WeatherByDay without crashing', async () => {
+describe('test WeekWeather', () => {
+  test('render WeekWeather without crashing', async () => {
     const data = {
       cod: '200',
       message: 0,
@@ -41,9 +37,7 @@ describe('test WeatherByDay', () => {
             humidity: 58,
             temp_kf: 4.99,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 4.87, deg: 139, gust: 8.65 },
           visibility: 10000,
@@ -64,9 +58,7 @@ describe('test WeatherByDay', () => {
             humidity: 63,
             temp_kf: 4.45,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 3.29, deg: 150, gust: 7.43 },
           visibility: 10000,
@@ -87,9 +79,7 @@ describe('test WeatherByDay', () => {
             humidity: 71,
             temp_kf: 2.48,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 2.07, deg: 170, gust: 3.47 },
           visibility: 10000,
@@ -110,9 +100,7 @@ describe('test WeatherByDay', () => {
             humidity: 80,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01n' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01n' }],
           clouds: { all: 7 },
           wind: { speed: 0.85, deg: 142, gust: 1.04 },
           visibility: 10000,
@@ -133,9 +121,7 @@ describe('test WeatherByDay', () => {
             humidity: 75,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 5 },
           wind: { speed: 0.51, deg: 10, gust: 0.68 },
           visibility: 10000,
@@ -156,9 +142,7 @@ describe('test WeatherByDay', () => {
             humidity: 55,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 8 },
           wind: { speed: 1.47, deg: 360, gust: 1.76 },
           visibility: 10000,
@@ -179,9 +163,7 @@ describe('test WeatherByDay', () => {
             humidity: 41,
             temp_kf: 0,
           },
-          weather: [
-            { id: 800, main: 'Clear', description: 'clear sky', icon: '01d' },
-          ],
+          weather: [{ id: 800, main: 'Clear', description: 'clear sky', icon: '01d' }],
           clouds: { all: 10 },
           wind: { speed: 2.09, deg: 49, gust: 2.16 },
           visibility: 10000,
@@ -204,7 +186,7 @@ describe('test WeatherByDay', () => {
     const promise = Promise.resolve({ data });
     axios.get.mockImplementationOnce(() => promise);
     const toDay = 2;
-    store.dispatch(API_FETCH_REQUEST({ id: toDay, nameCity: 'ha noi' }));
+    store.dispatch(FETCH_API_REQUEST_ONE({ id: toDay, nameCity: 'ha noi' }));
     await act(() => sleep(1000));
     const container = render(Wrapper);
     await act(() => sleep(1000));
