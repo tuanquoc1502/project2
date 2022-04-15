@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ADD_WEATHER } from '../../../contansts/contansts';
 import styles from './AddCity.module.scss';
 
@@ -21,20 +21,30 @@ const style = {
   p: 4,
 };
 
-function EditWeatherCity({ open, setOpen, indexWeather }) {
+function EditWeatherCity({ open, setOpen }) {
   const [nameCity, setNameCity] = useState();
   const [tempC, setTempC] = useState();
   const [humidity, setHumidity] = useState();
   const [wind, setWind] = useState();
 
+  const addDataWeather = useSelector((state) => state.allDataWeather);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
 
   const notify = () => toast.success('successfully added');
 
-  const handleAddCity = () => {
+  const handleAddCity = (addDataWeather) => {
     if (!nameCity || !tempC || !humidity || !wind) {
       return toast.warning('Please enter full information');
+    }
+
+    // check when cities overlap
+    const isExists = addDataWeather.some((item) => {
+      return nameCity.toLowerCase().replace(/\s/g, '') == item.nameCity.toLowerCase().replace(/\s/g, '');
+    });
+
+    if (isExists) {
+      return toast.warning('The city already exists');
     }
 
     const data = {
@@ -76,7 +86,7 @@ function EditWeatherCity({ open, setOpen, indexWeather }) {
             <button className={styles.cancelBtn} onClick={handleClose}>
               Cancel
             </button>
-            <button className={styles.saveBtn} onClick={handleAddCity}>
+            <button className={styles.saveBtn} onClick={() => handleAddCity(addDataWeather)}>
               Save
             </button>
           </div>
