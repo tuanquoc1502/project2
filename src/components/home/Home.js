@@ -2,16 +2,13 @@ import React, { memo, useEffect, useState } from 'react';
 import TemperatureSwitch from '../temperatureSwitch/TemperatureSwitch';
 import { hour, minute, year, amPm, date, day, month } from '../../contansts/contansts';
 import styles from './Home.module.scss';
+import { BsFillUmbrellaFill } from 'react-icons/bs';
 
 const Home = ({ data, temperature, setTemperature }) => {
   const [rainNotification, setRainNotification] = useState(false);
   // handle weather if it rains
   useEffect(() => {
-    if (data.detalsWeather.icon == '10n' || data.detalsWeather.icon == '10d') {
-      setRainNotification(true);
-    } else {
-      setRainNotification(false);
-    }
+    data.detalsWeather.icon == '10n' || data.detalsWeather.icon == '10d' ? setRainNotification(true) : setRainNotification(false);
   }, [data]);
 
   return (
@@ -28,7 +25,11 @@ const Home = ({ data, temperature, setTemperature }) => {
           </span>
           <span className={styles.year}>{year}</span>
 
-          {rainNotification && <div className={styles.rainNotification}>Trời có mưa, hãy mang theo dù!</div>}
+          {rainNotification && (
+            <div className={styles.rainNotification}>
+              Trời có mưa, hãy mang theo dù <BsFillUmbrellaFill />
+            </div>
+          )}
         </div>
 
         <div className={styles.weatherInfo}>

@@ -15,7 +15,7 @@ function LineChart({ index, data, temperature }) {
   }, [data]);
 
   useEffect(() => {
-    const text = `${temperature ? data.detalsWeather.tempF : data.detalsWeather.tempC} ${temperature ? '' : ''}`;
+    const text = `${temperature ? data.detalsWeather.tempF : data.detalsWeather.tempC}`;
     setCurrentTempText(text);
   }, [value, index, temperature]);
 

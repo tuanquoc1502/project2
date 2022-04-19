@@ -3,27 +3,22 @@ import { API_RESET, FETCH_API_CHART_REQUEST, toDay } from '../../contansts/conta
 import { useDispatch } from 'react-redux';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import styles from './ChartNumberSelection.module.scss';
+import { numberSelector } from '../../contansts/contansts';
+import { useSelector } from 'react-redux';
+import { totalCity } from '../../contansts/contansts';
 
-const ChartNumberSelection = ({ data }) => {
-  const [open, setOpen] = useState(false);
+const ChartNumberSelection = () => {
   const [number, setNumber] = useState(1);
 
   const dispatch = useDispatch();
+  const totalData = useSelector((state) => state.numberCharts);
 
   useEffect(() => {
     // city ​​entered by user
-    const total = ['ha noi', 'ho chi minh', 'new york', 'Bà Rịa', 'ninh binh'];
 
     dispatch(API_RESET());
     for (let i = 0; i < number; i++) {
-      // fake time call api
-      setOpen(true);
-
-      dispatch(FETCH_API_CHART_REQUEST({ id: toDay, nameCity: total[i] }));
-
-      setTimeout(() => {
-        setOpen(false);
-      }, 1500);
+      dispatch(FETCH_API_CHART_REQUEST({ id: toDay, nameCity: totalCity[i] }));
     }
   }, [number]);
 
@@ -39,13 +34,17 @@ const ChartNumberSelection = ({ data }) => {
         }}
         className={styles.box}
       >
-        <Select value={number} onChange={(e) => setNumber(e.target.value)} disabled={open} style={{ fontSize: '1.4rem' }}>
-          <MenuItem style={{ fontSize: '1.3rem' }} value={1}>
-            1 Chart
-          </MenuItem>
-          <MenuItem style={{ fontSize: '1.3rem' }} value={5}>
-            5 Chart
-          </MenuItem>
+        <Select
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+          disabled={totalData[0]?.request ? false : true}
+          style={{ fontSize: '1.4rem' }}
+        >
+          {numberSelector.map((number) => (
+            <MenuItem style={{ fontSize: '1.3rem' }} key={number} value={number}>
+              {number} Chart
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </>

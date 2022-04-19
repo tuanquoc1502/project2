@@ -1,5 +1,5 @@
 import { call, put, takeEvery, delay } from 'redux-saga/effects';
-import { API_FETCH_FAILED, CALL_CHARTS, CALL_WEATHER } from '../contansts/contansts';
+import { API_FETCH_FAILED, CALL_CHARTS, CALL_WEATHER, CALL_LOADING } from '../contansts/contansts';
 import fetchData from './api';
 
 function* rootSaga() {
@@ -11,7 +11,9 @@ function* handleApiChartRequest(action) {
   try {
     const data = yield call(fetchData, action.payload.nameCity);
     data.id = action.payload.id;
-    yield delay(1500);
+
+    yield put(CALL_LOADING());
+    yield delay(1000);
     yield put(CALL_CHARTS(data));
   } catch (e) {
     yield put(API_FETCH_FAILED());
@@ -22,7 +24,7 @@ function* handleApiWeatherRequest(action) {
   try {
     const data = yield call(fetchData, action.payload);
     data.id = action.payload.id;
-    yield delay(1500);
+    yield delay(500);
     yield put(CALL_WEATHER(data));
   } catch (e) {
     yield put(API_FETCH_FAILED());

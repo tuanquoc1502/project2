@@ -4,14 +4,15 @@
 }
 
 .header {
-  background: #1677e5;
+  background: #046adf;
   height: 60px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 15px 10px 15px 25px;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: white;
+  font-weight: 400;
 
   .left {
     width: 30%;
@@ -30,12 +31,12 @@
       width: 30%;
 
       svg {
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin-left: 7px;
       }
 
       .iconHumidity {
-        font-size: 3rem;
+        font-size: 2.2rem;
         margin-left: 1.5px;
       }
     }
@@ -63,7 +64,7 @@ ul {
       span {
         display: block;
         white-space: nowrap;
-        width: 120px;
+        width: 130px;
         line-height: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -81,6 +82,18 @@ ul {
         align-items: center;
         justify-content: center;
         width: 30%;
+
+        // span {
+        //   white-space: nowrap;
+        //   width: 70px;
+        //   line-height: 20px;
+        //   overflow: hidden;
+        //   text-overflow: ellipsis;
+        // }
+
+        .temperature {
+          color: #1b4de4;
+        }
       }
 
       .edit {

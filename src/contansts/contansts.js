@@ -78,6 +78,16 @@ const ADD_WEATHER = (payload) => {
   };
 };
 
+const CALL_LOADING = (payload) => {
+  return {
+    type: 'CALL_LOADING',
+    payload: payload,
+  };
+};
+
+const numberSelector = [1, 5];
+const totalCity = ['ha noi', 'ho chi minh', 'new york', 'Bà Rịa', 'ninh binh'];
+
 // Current time
 let data = new Date();
 let hour = data.getHours();
@@ -143,7 +153,7 @@ export const convertCtoF = (c) => {
   return (c * 9) / 5 + 32;
 };
 
-export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek };
+export { hour, minute, year, amPm, date, day, month, toDay, daysOfWeek, numberSelector, totalCity };
 export {
   API_FETCH_FAILED,
   FETCH_API_CHART_REQUEST,
@@ -156,4 +166,5 @@ export {
   EDIT_WEATHER,
   DELETE_WEATHER,
   ADD_WEATHER,
+  CALL_LOADING,
 };

@@ -8,23 +8,12 @@ import styles from './DeleteCity.module.scss';
 // toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import { styleModal } from '../allWeather/AllWeather';
 
 export default function DeleteCity({ indexWeather, openConfirm, setOpenConfirm }) {
   const dispatch = useDispatch();
 
-  const notify = () => toast.success('successfully deleted');
+  const notify = () => toast.success('Successfully deleted');
 
   const handleClose = () => {
     setOpenConfirm(false);
@@ -40,7 +29,7 @@ export default function DeleteCity({ indexWeather, openConfirm, setOpenConfirm }
     <div>
       <ToastContainer />
       <Modal open={openConfirm} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-        <Box sx={style}>
+        <Box sx={styleModal}>
           <div className={styles.boxConfirm}>
             <h1>Are you sure you want to delete</h1>
             <div className={styles.confirmBtn}>

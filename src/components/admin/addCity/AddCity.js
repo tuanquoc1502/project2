@@ -4,14 +4,13 @@ import ModalAddCity from './ModalAddCity';
 
 const AddCity = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
 
   return (
     <>
-      <div className={styles.wrapper} onClick={handleOpen}>
+      <div data-testid="openEl" className={styles.wrapper} onClick={() => setOpen(true)}>
         <div className={styles.title}>Add City</div>
       </div>
-      <ModalAddCity open={open} setOpen={setOpen} />
+      {open && <ModalAddCity open={open} setOpen={setOpen} />}
     </>
   );
 };

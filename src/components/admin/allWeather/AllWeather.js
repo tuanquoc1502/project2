@@ -14,6 +14,18 @@ import { FaTemperatureLow } from 'react-icons/fa';
 import { WiHumidity } from 'react-icons/wi';
 import { BsWind } from 'react-icons/bs';
 
+export const styleModal = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '1px solid #000',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  p: 4,
+};
+
 function AllWeather() {
   const [open, setOpen] = useState(false);
   const [dataItem, setDataItem] = useState([]);
@@ -25,7 +37,7 @@ function AllWeather() {
   const data = useSelector((state) => state.allDataWeather);
 
   useEffect(() => {
-    const total = ['ha noi', 'ho chi minh', 'Bắc Kạn', 'Bà Rịa', 'ninh binh', 'hue', 'quang tri', 'binh duong', 'an giang', 'hai duong'];
+    const total = ['ha noi', 'ho chi minh', 'Bắc Kạn', 'Bà Rịa', 'ninh binh', 'quang tri', 'an giang', 'hai duong', 'hue'];
 
     dispatch(API_WEATHER_RESET());
 
@@ -76,7 +88,7 @@ function AllWeather() {
               </div>
               <div className={styles.right}>
                 <div className={styles.content}>
-                  <span>{item.tempC}°C</span>
+                  <span className={styles.temperature}>{item.tempC} °C</span>
                 </div>
                 <div className={styles.content}>
                   <span>{item.humidity}%</span>

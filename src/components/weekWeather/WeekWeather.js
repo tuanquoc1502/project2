@@ -33,7 +33,7 @@ const WeekWeather = ({ data, i, temperature }) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slidesToShow: 4,
     slidesToScroll: 3,
   };

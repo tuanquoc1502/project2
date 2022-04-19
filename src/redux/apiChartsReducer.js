@@ -18,6 +18,7 @@ const weatherReducer = (state = initState, action) => {
             humidity: list[id].main.humidity,
             wind: list[id].wind.speed.toFixed(1),
           },
+          request: 'sucssues',
         },
       ];
     }
@@ -28,7 +29,7 @@ const weatherReducer = (state = initState, action) => {
     case 'DETAIL_WEATHER':
       const newState = state.map((object, index) => {
         if (index === action.payload.i) {
-          object = { ...object, detalsWeather: action.payload.weatherScreenData };
+          object = { ...object, detalsWeather: action.payload.weatherScreenData, request: 'sucssues' };
         }
         return object;
       });
