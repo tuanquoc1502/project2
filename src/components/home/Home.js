@@ -2,16 +2,13 @@ import React, { memo, useEffect, useState } from 'react';
 import TemperatureSwitch from '../temperatureSwitch/TemperatureSwitch';
 import { hour, minute, year, amPm, date, day, month } from '../../contansts/contansts';
 import styles from './Home.module.scss';
+import { BsFillUmbrellaFill } from 'react-icons/bs';
 
 const Home = ({ data, temperature, setTemperature }) => {
   const [rainNotification, setRainNotification] = useState(false);
   // handle weather if it rains
   useEffect(() => {
-    if (data.detalsWeather.icon == '10n' || data.detalsWeather.icon == '10d') {
-      setRainNotification(true);
-    } else {
-      setRainNotification(false);
-    }
+    data.detalsWeather.icon == '10n' || data.detalsWeather.icon == '10d' ? setRainNotification(true) : setRainNotification(false);
   }, [data]);
 
   return (
@@ -29,7 +26,9 @@ const Home = ({ data, temperature, setTemperature }) => {
           <span className={styles.year}>{year}</span>
 
           {rainNotification && (
-            <div className={styles.rainNotification}>Trời có mưa, hãy mang theo dù!</div>
+            <div className={styles.rainNotification}>
+              Trời có mưa, hãy mang theo dù <BsFillUmbrellaFill />
+            </div>
           )}
         </div>
 
@@ -55,12 +54,12 @@ const Home = ({ data, temperature, setTemperature }) => {
           <div className={styles.infoSupplement}>
             <div className={styles.humidity}>
               <h3 data-testid="test">Humidity</h3>
-              <div className={styles.parameter}>{data.detalsWeather.humidity}</div>
+              <div className={styles.parameter}>{data.detalsWeather.humidity}%</div>
             </div>
 
             <div className={styles.windSpeed}>
               <h3>Wind speed</h3>
-              <div className={styles.parameter}>{data.detalsWeather.windSpeed} km/h</div>
+              <div className={styles.parameter}>{data.detalsWeather.wind} km/h</div>
             </div>
           </div>
         </div>

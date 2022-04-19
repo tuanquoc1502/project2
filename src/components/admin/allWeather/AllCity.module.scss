@@ -1,0 +1,123 @@
+.wrapper {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.header {
+  background: #046adf;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 10px 15px 25px;
+  font-size: 1.7rem;
+  color: white;
+  font-weight: 400;
+
+  .left {
+    width: 30%;
+  }
+
+  .right {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30%;
+
+      svg {
+        font-size: 1.5rem;
+        margin-left: 7px;
+      }
+
+      .iconHumidity {
+        font-size: 2.2rem;
+        margin-left: 1.5px;
+      }
+    }
+  }
+}
+
+ul {
+  .itemWeather {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    background: white;
+
+    height: 50px;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 200;
+    opacity: 0.9;
+    color: rgb(48, 47, 47);
+    padding: 15px 10px 15px 25px;
+
+    .left {
+      width: 30%;
+
+      span {
+        display: block;
+        white-space: nowrap;
+        width: 130px;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .right {
+      width: 70%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30%;
+
+        // span {
+        //   white-space: nowrap;
+        //   width: 70px;
+        //   line-height: 20px;
+        //   overflow: hidden;
+        //   text-overflow: ellipsis;
+        // }
+
+        .temperature {
+          color: #1b4de4;
+        }
+      }
+
+      .edit {
+        margin: 0 10px;
+        padding: 8px;
+
+        &:hover {
+          opacity: 0.5;
+        }
+
+        svg {
+          cursor: pointer;
+          font-size: 2rem;
+        }
+      }
+
+      .delete {
+        @extend .edit;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.setting {
+  width: 15%;
+}

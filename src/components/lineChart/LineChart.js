@@ -1,27 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 // libary Chartjs
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 function LineChart({ index, data, temperature }) {
   const [value, setValue] = useState([]);
@@ -34,9 +15,7 @@ function LineChart({ index, data, temperature }) {
   }, [data]);
 
   useEffect(() => {
-    const text = `${temperature ? data.detalsWeather.tempF : data.detalsWeather.tempC} ${
-      temperature ? '' : ''
-    }`;
+    const text = `${temperature ? data.detalsWeather.tempF : data.detalsWeather.tempC}`;
     setCurrentTempText(text);
   }, [value, index, temperature]);
 
@@ -80,9 +59,7 @@ function LineChart({ index, data, temperature }) {
               borderWidth: 2,
               tension: 0.4,
               fill: true,
-              pointStyle: temperature
-                ? `${data.detalsWeather.tempF}°F`
-                : `${data.detalsWeather.tempC}°C`,
+              pointStyle: temperature ? `${data.detalsWeather.tempF}°F` : `${data.detalsWeather.tempC}°C`,
               currentIndex: index,
               currentTemp: value[index],
               currentTempText: currentTempText,

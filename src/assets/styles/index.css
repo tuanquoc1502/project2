@@ -13,25 +13,42 @@ html {
 
   font-size: 62.5%;
   line-height: 1.6rem;
-
+  min-height: 100vh;
   box-sizing: border-box;
   outline: none;
   border: none;
   scroll-behavior: smooth;
-  background: #999;
+  background: linear-gradient(0deg, #615878, #615878 20%, #464161 60%, #313050 90%, #313050);
+  background-repeat: no-repeat;
 }
 
 .App {
-  width: 1000px;
+  width: 1100px;
   margin: 0 auto;
 }
 
 .wapper {
   display: flex;
   background: white;
-  width: 1000px;
-  margin: 0 auto;
   border-radius: 15px;
   margin-bottom: 50px;
   overflow: hidden;
+}
+
+.Toastify {
+  font-size: 15px !important;
+}
+
+.demoSimpleSelect {
+  font-size: 1.3rem;
+}
+
+.value {
+  font-size: 1.2rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
